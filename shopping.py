@@ -1,4 +1,5 @@
 """Список покупок: добавление товаров и подсчёт суммы."""
+from discount import apply_discount, card_discount
 
 
 def add_item(items, name, price, quantity=1):
@@ -16,9 +17,15 @@ def total(items):
     return sum(item["price"] * item["quantity"] for item in items)
 
 
+def checkout(items, card=None):
+    """Итог к оплате с учётом скидки по карте."""
+    return apply_discount(total(items), card_discount(card))
+
+
 if __name__ == "__main__":
     basket = add_item([], "Хлеб", 45)
     basket = add_item(basket, "Молоко", 89, 2)
     basket = add_item(basket, "Сыр", 320)
     basket = remove_item(basket, "Сыр")
     print(f"Итого: {total(basket)} руб.")
+    print(f"С картой gold: {checkout(basket, 'gold')} руб.")
