@@ -12,7 +12,7 @@ def remove_item(items, name):
 
 
 def total(items):
-    """Общая стоимость покупок."""
+    """Общая стоимость покупок в рублях."""
     return sum(item["price"] * item["quantity"] for item in items)
 
 
